@@ -1,0 +1,62 @@
+{
+  "name": "unchi-counter-kiwami",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/electron/main/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "app:dev": "vue-tsc && concurrently vite \" electron .\" \"tsc -w\"",
+    "app:build": "npm run build && tsc && electron-builder",
+    "app:preview": "npm run build && tsc && electron ."
+  },
+  "build": {
+    "appId": "YourAppID",
+    "asar": true,
+    "directories": {
+      "buildResources": "assets",
+      "output": "release/${version}"
+    },
+    "files": [
+      "dist"
+    ],
+    "mac": {
+      "artifactName": "${productName}_${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}_${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "dependencies": {
+    "pinia": "^2.2.2",
+    "vue": "^3.4.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.2",
+    "concurrently": "^8.2.2",
+    "electron": "^32.0.1",
+    "electron-builder": "^24.13.3",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1",
+    "vue-tsc": "^2.0.29"
+  }
+}
